@@ -2,7 +2,7 @@
 Paper: "Fast and Accurate Image Super Resolution by Deep CNN with Skip Connection and Network in Network"
 Ver: 2.0
 
-DCSCN model implementation (Transposed-CNN / Pixel Shuffler version)
+DCSCN model implementation (Transposed-CNN / Pixel Shuffler version)_Amul Batra-5
 See Detail: https://github.com/jiny2001/dcscn-super-resolution/
 
 Please note this model is updated version of the paper.
