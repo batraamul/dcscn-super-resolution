@@ -188,6 +188,8 @@ class SuperResolution(tf_graph.TensorflowGraph):
         for i in range(self.batch_num):
             self.batch_input[i], self.batch_input_bicubic[i], self.batch_true[i] = self.train.load_batch_image(
                 self.max_value)
+             noise=random_noise(self.batch_input_bicubic[i],mode='gaussian',seed=None,clip=True)
+             self.batch_input_bicubic[i]= np.array(255*noise, dtype = 'uint8') 
 
     def load_graph(self, frozen_graph_filename='./model_to_freeze/frozen_model_optimized.pb'):
         """ 
