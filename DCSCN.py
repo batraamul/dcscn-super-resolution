@@ -21,6 +21,9 @@ import numpy as np
 import tensorflow.compat.v1 as tf
 
 from helper import loader, tf_graph, utilty as util
+# <Modified by> Amul Batra </Modified by>
+# <Reason> To add moise to the image patch just before finding the residual</Reason> 
+from skimage.util import random_noise
 
 BICUBIC_METHOD_STRING = "bicubic"
 
@@ -188,6 +191,12 @@ class SuperResolution(tf_graph.TensorflowGraph):
         for i in range(self.batch_num):
             self.batch_input[i], self.batch_input_bicubic[i], self.batch_true[i] = self.train.load_batch_image(
                 self.max_value)
+             # </ModifiedBy> [Amul Batra] Purpose: to add noise before training 
+            # <Date/Time> 23/07/2021 at 4: 51PM 
+             noise=random_noise(self.self.batch_true[i],mode='s&p',seed=None,clip=True)
+             self.self.batch_true[i]= np.array(255*noise, dtype = 'uint8') 
+             noise=random_noise(self.self.batch_true[i],mode='gaussian',seed=None,clip=True)
+             self.self.batch_true[i]= np.array(255*noise, dtype = 'uint8')
 
     def load_graph(self, frozen_graph_filename='./model_to_freeze/frozen_model_optimized.pb'):
         """ 
