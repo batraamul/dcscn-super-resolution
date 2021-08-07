@@ -193,10 +193,10 @@ class SuperResolution(tf_graph.TensorflowGraph):
                 self.max_value)
              # </ModifiedBy> [Amul Batra] Purpose: to add noise before training 
             # <Date/Time> 23/07/2021 at 4: 51PM 
-             noise=random_noise(self.self.batch_true[i],mode='s&p',seed=None,clip=True)
-             self.self.batch_true[i]= np.array(255*noise, dtype = 'uint8') 
-             noise=random_noise(self.self.batch_true[i],mode='gaussian',seed=None,clip=True)
-             self.self.batch_true[i]= np.array(255*noise, dtype = 'uint8')
+            noise=random_noise(self.self.batch_true[i],mode='s&p',seed=None,clip=True)
+            self.self.batch_true[i]= np.array(255*noise, dtype = 'uint8') 
+            noise=random_noise(self.self.batch_true[i],mode='gaussian',seed=None,clip=True)
+            self.self.batch_true[i]= np.array(255*noise, dtype = 'uint8')
 
     def load_graph(self, frozen_graph_filename='./model_to_freeze/frozen_model_optimized.pb'):
         """ 
