@@ -189,14 +189,14 @@ class SuperResolution(tf_graph.TensorflowGraph):
     def build_input_batch(self):
 
         for i in range(self.batch_num):
+           # </ModifiedBy> [Amul Batra] Purpose: to add noise before training 
+            # <Date/Time> 23/07/2021 at 4: 51PM 
+            noise_sp=random_noise(self.batch_true[i],mode='s&p',amount=0.1)
+            self.batch_true[i]= np.array(255*noise_sp, dtype = 'uint8') 
+            noise_final=random_noise(self.batch_true[i],mode='gaussian',seed=None,clip=True)
+            self.batch_true[i]= np.array(255*noise_final, dtype = 'uint8')
             self.batch_input[i], self.batch_input_bicubic[i], self.batch_true[i] = self.train.load_batch_image(
                 self.max_value)
-             # </ModifiedBy> [Amul Batra] Purpose: to add noise before training 
-            # <Date/Time> 23/07/2021 at 4: 51PM 
-            noise=random_noise(self.self.batch_true[i],mode='s&p',seed=None,clip=True)
-            self.self.batch_true[i]= np.array(255*noise, dtype = 'uint8') 
-            noise=random_noise(self.self.batch_true[i],mode='gaussian',seed=None,clip=True)
-            self.self.batch_true[i]= np.array(255*noise, dtype = 'uint8')
 
     def load_graph(self, frozen_graph_filename='./model_to_freeze/frozen_model_optimized.pb'):
         """ 
